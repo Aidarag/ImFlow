@@ -3482,13 +3482,956 @@
   background: #F4F4F5;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 0.84rem;
-}
-
 .text-lavender {
   color: #C5B2DC;
 }
 .text-lime {
   color: #A3C910;
+}
+
+/* =========================================================
+   4. AÏDA'S PERSONAL LIFE SPACE (MATCHING NOTION REFERENCE)
+   ========================================================= */
+
+.personal-space-container {
+  flex: 1;
+  min-width: 0;
+  background-color: #FFFFFF !important;
+  color: #0A0A0A !important;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Top Notion-style Breadcrumb Bar */
+.personal-top-bar {
+  height: 44px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  border-bottom: 1px solid #F1F1F4;
+  background: #FFFFFF !important;
+  color: #0A0A0A !important;
+  z-index: 10;
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notion-page-tag {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #0A0A0A !important;
+}
+
+.notion-privacy-badge {
+  font-size: 0.72rem;
+  color: #71717A;
+  background: #F4F4F5;
+  padding: 2px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notion-edited-text {
+  font-size: 0.72rem;
+  color: #A1A1AA;
+}
+
+.notion-btn-share {
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #E4E4E7;
+  background: #FFFFFF;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #0A0A0A !important;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.notion-btn-share:hover {
+  background: #F4F4F5;
+}
+
+.notion-btn-icon {
+  background: none;
+  border: none;
+  color: #71717A;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notion-btn-icon:hover {
+  color: #0A0A0A;
+}
+
+/* Panoramic Wide Cover Image */
+.personal-cover-wrapper {
+  height: 220px;
+  max-height: 220px;
+  min-height: 220px;
+  flex-shrink: 0;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #0A0A0A;
+}
+
+.personal-cover-img {
+  width: 100%;
+  height: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  object-position: center 38%;
+  display: block;
+}
+
+.cover-hover-actions {
+  position: absolute;
+  bottom: 12px;
+  right: 24px;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.personal-cover-wrapper:hover .cover-hover-actions {
+  opacity: 1;
+}
+
+.btn-cover-action {
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Header Section with Overlapping Icon */
+.personal-header-section {
+  padding: 0 36px 14px 36px;
+  position: relative;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.personal-page-icon-badge {
+  position: relative;
+  margin-top: -28px;
+  margin-bottom: 10px;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 1.5px solid #EAEAEF;
+  box-shadow: 0 4px 14px rgba(10, 10, 10, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  z-index: 2;
+}
+
+.personal-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.personal-space-title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0A0A0A !important;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  margin: 0 0 4px 0;
+}
+
+.personal-space-motto {
+  font-size: 0.8rem;
+  color: #71717A;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Three-Column Grid */
+.personal-three-columns-grid {
+  display: grid;
+  grid-template-columns: 240px 1fr 240px;
+  gap: 22px;
+  padding: 0 36px 48px 36px;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1250px) {
+  .personal-three-columns-grid {
+    grid-template-columns: 220px 1fr 220px;
+    gap: 16px;
+    padding: 0 20px 40px 20px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .personal-three-columns-grid {
+    grid-template-columns: 1fr 230px;
+  }
+}
+
+@media (max-width: 768px) {
+  .personal-three-columns-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   LEFT COLUMN STYLES
+   ========================================================= */
+.personal-col-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.notion-image-card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #EAEAEF;
+  box-shadow: 0 2px 8px rgba(10, 10, 10, 0.04);
+  background: #FAFAFA;
+}
+
+.notion-card-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.notion-block-box {
+  background: #FFFFFF;
+  border: 1px solid #EAEAEF;
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 1px 4px rgba(10, 10, 10, 0.03);
+}
+
+.notion-section-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0A0A0A;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.notion-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.notion-nav-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: #374151;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.notion-nav-row:hover {
+  background: #F4F4F6;
+  color: #0A0A0A;
+}
+
+.nav-cloud-icon {
+  color: #C5B2DC;
+  flex-shrink: 0;
+}
+
+/* "main character" card */
+.main-character-card {
+  background: #FFFFFF;
+  border: 1px solid #EAEAEF;
+  border-radius: 10px;
+  padding: 16px 12px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(10, 10, 10, 0.03);
+}
+
+.main-character-text {
+  font-family: 'Alex Brush', cursive;
+  font-size: 2.3rem;
+  color: #0A0A0A;
+  display: block;
+  line-height: 1;
+}
+
+/* Habit Tracker Box */
+.habit-tracker-box {
+  padding: 12px;
+}
+
+.habit-header-row {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #71717A;
+  margin-bottom: 2px;
+}
+
+.daily-habits-inner-card {
+  background: #FBFBFC;
+  border: 1px solid #EAEAEF;
+  border-radius: 8px;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.daily-habits-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0A0A0A;
+}
+
+.daily-habits-date {
+  font-size: 0.68rem;
+  color: #A1A1AA;
+  margin-bottom: 2px;
+}
+
+.habit-items-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.habit-check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: #374151;
+}
+
+.custom-checkbox {
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  border: 1.5px solid #D4D4D8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+  background: #FFFFFF;
+}
+
+.custom-checkbox.checked {
+  background: #E9FFA3;
+  border-color: #0A0A0A;
+  color: #0A0A0A;
+}
+
+.habit-text.completed {
+  text-decoration: line-through;
+  color: #A1A1AA;
+}
+
+.btn-add-habit {
+  background: none;
+  border: none;
+  color: #71717A;
+  font-size: 0.7rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-top: 4px;
+}
+
+.btn-add-habit:hover {
+  color: #0A0A0A;
+}
+
+.bottom-mood-card {
+  min-height: 120px;
+  background: linear-gradient(135deg, #18181B 0%, #09090B 100%);
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  align-items: flex-end;
+  box-shadow: 0 2px 8px rgba(10, 10, 10, 0.08);
+}
+
+.bottom-mood-overlay {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.mood-tag {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #E9FFA3;
+}
+
+.mood-quote {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+/* =========================================================
+   CENTER COLUMN STYLES
+   ========================================================= */
+.personal-col-center {
+  display: flex;
+  flex-direction: column;
+}
+
+.notion-center-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.center-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.center-section-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0A0A0A;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.section-tabs-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tab-pill-btn {
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #E5E7EB;
+  background: #FFFFFF;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #52525B;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tab-pill-btn.active {
+  background: #0A0A0A;
+  color: #FFFFFF;
+  border-color: #0A0A0A;
+}
+
+.tab-pill-btn.btn-new-accent {
+  background: #E9FFA3;
+  color: #0A0A0A;
+  border-color: #E9FFA3;
+  font-weight: 700;
+}
+
+.tab-link-btn {
+  background: none;
+  border: none;
+  color: #6D28D9;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.tab-link-btn:hover {
+  text-decoration: underline;
+}
+
+/* Gallery Cards Grid */
+.my-spaces-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.space-gallery-card {
+  background: #FFFFFF;
+  border: 1px solid #EAEAEF;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(10, 10, 10, 0.04);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.space-gallery-card:hover {
+  transform: translateY(-2px);
+  border-color: #C5B2DC;
+  box-shadow: 0 6px 18px rgba(197, 178, 220, 0.25);
+}
+
+.gallery-card-banner {
+  height: 72px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+}
+
+.banner-learning {
+  background: linear-gradient(135deg, #1E1B4B 0%, #3730A3 100%);
+}
+.banner-python {
+  background: linear-gradient(135deg, #064E3B 0%, #065F46 100%);
+}
+.banner-tennis {
+  background: linear-gradient(135deg, #022C22 0%, #047857 100%);
+}
+.banner-media {
+  background: linear-gradient(135deg, #881337 0%, #9F1239 100%);
+}
+.banner-wellness {
+  background: linear-gradient(135deg, #312E81 0%, #4338CA 100%);
+}
+.banner-social {
+  background: linear-gradient(135deg, #3B0764 0%, #581C87 100%);
+}
+
+.card-badge-pill {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  color: #FFFFFF;
+  letter-spacing: 0.02em;
+}
+
+.card-link-icon {
+  color: #FFFFFF;
+  opacity: 0.7;
+}
+
+.gallery-card-body {
+  padding: 10px 10px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gallery-card-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0A0A0A;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gallery-card-sub {
+  font-size: 0.7rem;
+  color: #71717A;
+  margin: 0 0 6px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gallery-progress-bar {
+  height: 4px;
+  border-radius: 9999px;
+  background: #F4F4F5;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+}
+
+.progress-fill.fill-lime {
+  background: #E9FFA3;
+}
+.progress-fill.fill-lavender {
+  background: #C5B2DC;
+}
+
+/* Assignment Tracker Kanban Grid */
+.assignment-tracker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.assignment-kanban-card {
+  background: #FAFAFC;
+  border: 1px solid #EAEAEF;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kanban-card-top-tag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #6B7280;
+}
+
+.tag-sparkle {
+  color: #C5B2DC;
+}
+
+.kanban-item-count {
+  margin-left: auto;
+  font-size: 0.65rem;
+  color: #9CA3AF;
+}
+
+.kanban-task-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0A0A0A;
+  line-height: 1.3;
+  margin: 2px 0;
+}
+
+.kanban-status-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-in-progress {
+  background: rgba(197, 178, 220, 0.25);
+  color: #4C1D95;
+  border: 1px solid rgba(197, 178, 220, 0.4);
+}
+
+.status-not-started {
+  background: #F4F4F5;
+  color: #71717A;
+  border: 1px solid #E4E4E7;
+}
+
+.status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.kanban-due-date {
+  font-size: 0.68rem;
+  color: #71717A;
+  margin-top: 2px;
+}
+
+.btn-kanban-add {
+  background: none;
+  border: none;
+  color: #9CA3AF;
+  font-size: 0.7rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  margin-top: 4px;
+  padding: 2px 0;
+}
+
+.btn-kanban-add:hover {
+  color: #0A0A0A;
+}
+
+/* =========================================================
+   RIGHT COLUMN STYLES
+   ========================================================= */
+.personal-col-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.affirmations-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.affirmation-toggle-item {
+  border-bottom: 1px solid #F4F4F5;
+  padding: 3px 0;
+}
+
+.affirmation-row-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  padding: 2px 0;
+}
+
+.toggle-triangle {
+  font-size: 0.65rem;
+  color: #C5B2DC;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.affirmation-title-text {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #0A0A0A;
+  line-height: 1.35;
+}
+
+.affirmation-detail-text {
+  font-size: 0.72rem;
+  color: #71717A;
+  padding-left: 14px;
+  margin: 4px 0 2px 0;
+  line-height: 1.4;
+}
+
+/* entries 🫧 */
+.entries-links-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.entry-link-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #374151;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.entry-link-row:hover {
+  background: #F4F4F6;
+  color: #0A0A0A;
+}
+
+.entry-slash {
+  color: #C5B2DC;
+  font-weight: 700;
+}
+
+/* Envelope graphic card */
+.envelope-graphic-card {
+  background: #FAF8F5;
+  border: 1px solid #EAE6DF;
+  border-radius: 8px;
+  padding: 18px 12px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 14px;
+  background: linear-gradient(to bottom, #F0EDE6, #FAF8F5);
+}
+
+.envelope-text {
+  font-size: 0.72rem;
+  font-style: italic;
+  color: #78716C;
+  font-family: serif;
+}
+
+/* reminders 🍸 */
+.reminders-bullet-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.reminder-bullet-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 0.76rem;
+  color: #374151;
+  line-height: 1.35;
+}
+
+.reminder-bullet-dot {
+  color: #C5B2DC;
+  font-weight: 900;
+}
+
+.reminder-text.completed {
+  text-decoration: line-through;
+  color: #A1A1AA;
+}
+
+.btn-add-reminder {
+  background: none;
+  border: none;
+  color: #71717A;
+  font-size: 0.7rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-top: 4px;
+}
+
+.btn-add-reminder:hover {
+  color: #0A0A0A;
+}
+
+/* Blair Waldorf Quote Card */
+.blair-waldorf-card {
+  background: #FFFFFF;
+  border: 2px solid #0A0A0A;
+  border-radius: 10px;
+  padding: 18px 14px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(10, 10, 10, 0.06);
+}
+
+.blair-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+}
+
+.blair-line-1 {
+  font-family: 'Italiana', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #0A0A0A;
+}
+
+.blair-line-2 {
+  font-family: 'Italiana', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #0A0A0A;
+}
+
+.blair-line-3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #0A0A0A;
+}
+
+.blair-line-4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #0A0A0A;
+}
+
+.blair-line-5 {
+  font-family: 'Italiana', serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #0A0A0A;
 }
 

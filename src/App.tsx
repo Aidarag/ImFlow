@@ -1,108 +1,148 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import { AppProvider, useApp } from './context/AppContext';
+import { AppProvider, useApp, MainTab } from './context/AppContext';
+import { CanvasSidebar } from './components/CanvasDashboard/CanvasSidebar';
+import { PersonalSpaceView } from './components/PersonalSpaceView/PersonalSpaceView';
 import { CanvasDashboard } from './components/CanvasDashboard/CanvasDashboard';
-import { Header } from './components/Header';
-import { Navigation } from './components/Navigation';
-import { TodayView } from './components/TodayView/TodayView';
 import { InboxView } from './components/InboxView/InboxView';
 import { CalendarView } from './components/CalendarView/CalendarView';
 import { SpacesView } from './components/SpacesView/SpacesView';
 import { SundayResetView } from './components/SundayResetView/SundayResetView';
 import { SettingsView } from './components/SettingsView/SettingsView';
+import { WidgetModals } from './components/CanvasDashboard/WidgetModals';
 import { QuickCaptureModal } from './components/QuickCaptureModal';
 import { TaskCard } from './components/TaskCard';
 
 const DashboardSwitch: React.FC = () => {
-  const { activeTab, setActiveTab, searchQuery, tasks, courses, projects } = useApp();
+  const {
+    activeTab,
+    setActiveTab,
+    setActiveSpaceTab,
+    searchQuery,
+    setSearchQuery,
+    tasks,
+    courses,
+    projects,
+    setIsQuickCaptureOpen
+  } = useApp();
 
-  // If search query is present, show instant global search results
-  if (searchQuery.trim().length > 0) {
-    const q = searchQuery.toLowerCase();
-    const matchedTasks = tasks.filter(
-      t =>
-        t.title.toLowerCase().includes(q) ||
-        t.courseOrProjectName?.toLowerCase().includes(q) ||
-        t.nextStep?.toLowerCase().includes(q) ||
-        t.notes?.toLowerCase().includes(q)
-    );
-    const matchedCourses = courses.filter(
-      c => c.name.toLowerCase().includes(q) || c.code.toLowerCase().includes(q)
-    );
-    const matchedProjects = projects.filter(
-      p => p.name.toLowerCase().includes(q) || p.goal.toLowerCase().includes(q)
-    );
+  const [activeWidgetModal, setActiveWidgetModal] = useState<
+    'calculator' | 'timer' | 'music' | 'quotes' | 'notes' | 'checklist' | null
+  >(null);
 
-    return (
-      <div className="canvas-dashboard-layout">
+  const handleOpenCourse = (courseId: string) => {
+    setActiveTab('learning');
+    if (courseId === 'anlt-410' || courseId === 'busa-380' || courseId === 'is-330') {
+      setActiveSpaceTab('school');
+    } else if (courseId === 'cs-python') {
+      setActiveSpaceTab('learning');
+    } else if (courseId === 'tennis') {
+      setActiveSpaceTab('tennis');
+    } else if (courseId === 'creative') {
+      setActiveSpaceTab('content');
+    }
+  };
+
+  const handleSelectNav = (nav: string) => {
+    if (nav === 'today' || nav === 'dashboard') setActiveTab('today');
+    else if (nav === 'learning' || nav === 'courses') setActiveTab('learning');
+    else if (nav === 'calendar') setActiveTab('calendar');
+    else if (nav === 'inbox') setActiveTab('inbox');
+    else if (nav === 'spaces') setActiveTab('spaces');
+    else if (nav === 'review') setActiveTab('review');
+    else if (nav === 'settings') setActiveTab('settings');
+  };
+
+  return (
+    <div className="canvas-dashboard-layout">
+      {/* 1. Persistent Compact Left Sidebar with 3x2 Widget Grid */}
+      <CanvasSidebar
+        activeNav={activeTab}
+        onOpenWidget={type => setActiveWidgetModal(type)}
+        onSelectNav={handleSelectNav}
+        onSelectCourse={handleOpenCourse}
+      />
+
+      {/* 2. Main View Body */}
+      {searchQuery.trim().length > 0 ? (
         <main className="canvas-main-viewport" style={{ padding: '32px' }}>
           <div className="canvas-dashboard-header">
             <div>
               <h2 className="canvas-main-title">Search Results for "{searchQuery}"</h2>
               <p className="section-caption">
-                Found {matchedTasks.length} tasks, {matchedCourses.length} courses, {matchedProjects.length} projects
+                Found {tasks.filter(t => t.title.toLowerCase().includes(searchQuery.toLowerCase())).length} tasks,{' '}
+                {courses.filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase())).length} courses
               </p>
             </div>
             <button
               className="btn btn-secondary btn-sm"
-              onClick={() => setActiveTab('today')}
+              onClick={() => setSearchQuery('')}
             >
-              Back to Dashboard
+              Clear Search
             </button>
           </div>
 
-          {matchedCourses.length > 0 && (
-            <div style={{ marginBottom: '24px' }}>
-              <h3 className="section-subheading">Courses</h3>
-              <div className="canvas-three-column-grid">
-                {matchedCourses.map(c => (
-                  <div key={c.id} className="canvas-course-card" style={{ padding: '16px' }}>
-                    <span className="badge badge-school" style={{ width: 'fit-content' }}>{c.code}</span>
-                    <h4 className="card-course-title" style={{ marginTop: '8px' }}>{c.name}</h4>
-                    <p className="card-course-code">{c.notes}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <h3 className="section-subheading">Tasks & Actions</h3>
           <div className="tasks-list-stack">
-            {matchedTasks.map(t => (
-              <TaskCard key={t.id} task={t} />
-            ))}
-            {matchedTasks.length === 0 && matchedCourses.length === 0 && (
-              <div className="empty-due-box" style={{ padding: '24px' }}>
-                <p>No matches found for "{searchQuery}". Try a different keyword.</p>
-              </div>
-            )}
+            {tasks
+              .filter(
+                t =>
+                  t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  t.courseOrProjectName?.toLowerCase().includes(searchQuery.toLowerCase())
+              )
+              .map(t => (
+                <TaskCard key={t.id} task={t} />
+              ))}
           </div>
         </main>
-      </div>
-    );
-  }
-
-  // Primary Default View: Exact recreation of the laptop screen dashboard!
-  if (activeTab === 'today') {
-    return <CanvasDashboard />;
-  }
-
-  // Alternate views (Inbox, Calendar, Spaces, Reset, Settings) with navigation
-  return (
-    <div className="app-shell">
-      <Header />
-      <div className="app-layout">
-        <Navigation />
-        <main className="main-wrapper">
-          <div className="page-container">
-            {activeTab === 'inbox' && <InboxView />}
-            {activeTab === 'calendar' && <CalendarView />}
-            {activeTab === 'spaces' && <SpacesView />}
-            {activeTab === 'review' && <SundayResetView />}
-            {activeTab === 'settings' && <SettingsView />}
-          </div>
+      ) : activeTab === 'today' ? (
+        /* Primary Homepage: Aïda's Personal Life Space matching user's new reference! */
+        <PersonalSpaceView
+          onNavigateToCourses={() => setActiveTab('learning')}
+          onOpenQuickCapture={() => setIsQuickCaptureOpen(true)}
+          onOpenNotes={() => setActiveWidgetModal('notes')}
+        />
+      ) : activeTab === 'learning' ? (
+        /* Courses LMS View: 3-column Course Cards + Right-Hand To-Do Panel */
+        <CanvasDashboard
+          hideSidebar={true}
+          onOpenWidgetModal={type => setActiveWidgetModal(type)}
+        />
+      ) : activeTab === 'calendar' ? (
+        <main className="canvas-main-viewport">
+          <CalendarView />
         </main>
-      </div>
+      ) : activeTab === 'inbox' ? (
+        <main className="canvas-main-viewport">
+          <InboxView />
+        </main>
+      ) : activeTab === 'spaces' ? (
+        <main className="canvas-main-viewport">
+          <SpacesView />
+        </main>
+      ) : activeTab === 'review' ? (
+        <main className="canvas-main-viewport">
+          <SundayResetView />
+        </main>
+      ) : activeTab === 'settings' ? (
+        <main className="canvas-main-viewport">
+          <SettingsView />
+        </main>
+      ) : (
+        <PersonalSpaceView
+          onNavigateToCourses={() => setActiveTab('learning')}
+          onOpenQuickCapture={() => setIsQuickCaptureOpen(true)}
+          onOpenNotes={() => setActiveWidgetModal('notes')}
+        />
+      )}
+
+      {/* Global Interactive Widget Modals */}
+      <WidgetModals
+        type={activeWidgetModal}
+        onClose={() => setActiveWidgetModal(null)}
+      />
+
+      {/* Global Quick Capture Modal */}
+      <QuickCaptureModal />
     </div>
   );
 };
@@ -111,8 +151,6 @@ export const App: React.FC = () => {
   return (
     <AppProvider>
       <DashboardSwitch />
-      {/* Global Quick Capture Modal accessible via + New Assignment */}
-      <QuickCaptureModal />
     </AppProvider>
   );
 };

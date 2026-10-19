@@ -125,16 +125,18 @@ export const CanvasSidebar: React.FC<CanvasSidebarProps> = ({
 
         <nav className="sidebar-pages-nav">
           <button
-            className={`page-nav-pill ${activeNav === 'dashboard' ? 'active' : ''}`}
-            onClick={() => onSelectNav('dashboard')}
+            className={`page-nav-pill ${activeNav === 'today' || activeNav === 'dashboard' ? 'active' : ''}`}
+            onClick={() => onSelectNav('today')}
+            title="Aïda's Personal Life Space"
           >
-            <LayoutDashboard size={15} />
-            <span>Dashboard</span>
+            <span style={{ fontSize: '0.9rem' }}>🍸</span>
+            <span>ay’s space</span>
           </button>
 
           <button
-            className={`page-nav-pill ${activeNav === 'courses' ? 'active' : ''}`}
-            onClick={() => onSelectNav('courses')}
+            className={`page-nav-pill ${activeNav === 'learning' || activeNav === 'courses' ? 'active' : ''}`}
+            onClick={() => onSelectNav('learning')}
+            title="Courses & Learning LMS"
           >
             <GraduationCap size={15} />
             <span>Courses</span>
@@ -163,6 +165,15 @@ export const CanvasSidebar: React.FC<CanvasSidebarProps> = ({
           >
             <Layers size={15} />
             <span>Spaces</span>
+          </button>
+
+          <button
+            className={`page-nav-pill ${activeNav === 'review' ? 'active' : ''}`}
+            onClick={() => onSelectNav('review')}
+            title="Sunday Reset & Weekly Review"
+          >
+            <Sparkles size={15} />
+            <span>Sunday Reset</span>
           </button>
 
           <button

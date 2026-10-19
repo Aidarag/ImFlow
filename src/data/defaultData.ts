@@ -20,7 +20,7 @@ export const defaultSettings: UserSettings = {
   quietHoursStart: '22:30',
   quietHoursEnd: '07:30',
   isLowEnergyMode: false,
-  theme: 'dark'
+  theme: 'light'
 };
 
 export const defaultCourses: Course[] = [

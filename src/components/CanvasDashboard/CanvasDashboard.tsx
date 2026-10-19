@@ -6,12 +6,28 @@ import { CanvasTodoPanel } from './CanvasTodoPanel';
 import { WidgetModals } from './WidgetModals';
 import { useApp } from '../../context/AppContext';
 
-export const CanvasDashboard: React.FC = () => {
+interface CanvasDashboardProps {
+  hideSidebar?: boolean;
+  onOpenWidgetModal?: (type: 'calculator' | 'timer' | 'music' | 'quotes' | 'notes' | 'checklist') => void;
+}
+
+export const CanvasDashboard: React.FC<CanvasDashboardProps> = ({
+  hideSidebar = false,
+  onOpenWidgetModal
+}) => {
   const { setActiveTab, setActiveSpaceTab, setIsQuickCaptureOpen } = useApp();
 
   const [activeWidgetModal, setActiveWidgetModal] = useState<
     'calculator' | 'timer' | 'music' | 'quotes' | 'notes' | 'checklist' | null
   >(null);
+
+  const handleWidgetTrigger = (type: 'calculator' | 'timer' | 'music' | 'quotes' | 'notes' | 'checklist') => {
+    if (onOpenWidgetModal) {
+      onOpenWidgetModal(type);
+    } else {
+      setActiveWidgetModal(type);
+    }
+  };
 
   // Six Imflow courses matching the 3-column 2-row laptop screen structure
   const [coursesData, setCoursesData] = useState<CourseCardData[]>([
@@ -151,20 +167,24 @@ export const CanvasDashboard: React.FC = () => {
   };
 
   return (
-    <div className="canvas-dashboard-layout">
-      {/* 1. Compact Left Sidebar */}
-      <CanvasSidebar
-        activeNav="dashboard"
-        onOpenWidget={type => setActiveWidgetModal(type)}
-        onSelectNav={handleSelectNav}
-        onSelectCourse={handleOpenCourse}
-      />
+    <>
+      {!hideSidebar && (
+        <CanvasSidebar
+          activeNav="learning"
+          onOpenWidget={handleWidgetTrigger}
+          onSelectNav={handleSelectNav}
+          onSelectCourse={handleOpenCourse}
+        />
+      )}
 
-      {/* 2. Main Center 3-Column Course Grid Area */}
+      {/* Main Center 3-Column Course Grid Area */}
       <main className="canvas-main-viewport">
         {/* Main Dashboard Header */}
         <div className="canvas-dashboard-header">
-          <h2 className="canvas-main-title">Dashboard</h2>
+          <div>
+            <span className="notion-breadcrumb-sub">Learning & Academics • Fall 2026</span>
+            <h2 className="canvas-main-title">Courses</h2>
+          </div>
           <button className="canvas-main-menu-btn" title="Dashboard View Options">
             <MoreVertical size={18} />
           </button>
@@ -183,19 +203,21 @@ export const CanvasDashboard: React.FC = () => {
         </div>
       </main>
 
-      {/* 3. Right-Hand To-Do Panel */}
+      {/* Right-Hand To-Do Panel */}
       <CanvasTodoPanel
         onOpenQuickCapture={() => setIsQuickCaptureOpen(true)}
-        onOpenTimer={() => setActiveWidgetModal('timer')}
-        onOpenReminders={() => setActiveWidgetModal('checklist')}
-        onOpenMusic={() => setActiveWidgetModal('music')}
+        onOpenTimer={() => handleWidgetTrigger('timer')}
+        onOpenReminders={() => handleWidgetTrigger('checklist')}
+        onOpenMusic={() => handleWidgetTrigger('music')}
       />
 
-      {/* Interactive Widget Modals */}
-      <WidgetModals
-        type={activeWidgetModal}
-        onClose={() => setActiveWidgetModal(null)}
-      />
-    </div>
+      {/* Standalone Widget Modals if not provided by parent */}
+      {!hideSidebar && (
+        <WidgetModals
+          type={activeWidgetModal}
+          onClose={() => setActiveWidgetModal(null)}
+        />
+      )}
+    </>
   );
 };

@@ -29,7 +29,7 @@ import {
   defaultSettings
 } from '../data/defaultData';
 
-export type MainTab = 'today' | 'inbox' | 'calendar' | 'spaces' | 'review' | 'settings';
+export type MainTab = 'today' | 'learning' | 'inbox' | 'calendar' | 'spaces' | 'review' | 'settings';
 
 interface AppContextType {
   tasks: Task[];
@@ -171,7 +171,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const [settings, setSettings] = useState<UserSettings>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.SETTINGS);
-    return saved ? JSON.parse(saved) : defaultSettings;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return { ...defaultSettings, ...parsed, theme: parsed.theme === 'dark' ? 'light' : 'light' };
+      } catch {
+        return defaultSettings;
+      }
+    }
+    return defaultSettings;
   });
 
   const [activeTab, setActiveTab] = useState<MainTab>('today');
